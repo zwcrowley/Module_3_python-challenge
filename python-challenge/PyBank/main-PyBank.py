@@ -1,3 +1,5 @@
+# PyBank- Module 3: by Zack Crowley
+# Import dependencies:
 import os
 import csv
 
@@ -9,29 +11,29 @@ with open(bank_csv) as csvfile:
     # Read in the bank data as a dictionary:
     bank_data = csv.DictReader(csvfile)
 
-    # Store each column as a var:
-    # First, create 2 empty lists as names for vars:
+    # Store each column as a list:
+    # First, create 2 empty lists for date and profit/losses:
     date_bank = []
     profit_losses_bank = []
-    # Create an empty list to save changes in :
+    # Create an empty list to save changes in profit/losses:
     changes_profit_losses = []
 
-    # Iterate over bank_data and store the colums as lists:
+    # Iterate over bank_data and store each column as a list:
     for row in bank_data:
         date_bank.append(row['Date']) 
         profit_losses_bank.append(int(row['Profit/Losses']))
         
-    # Iterate over profit_losses_bank and subtract each row in the list from the one before it, skipping the first row of the list:
+    # Iterate over profit_losses_bank and subtract each row in the list from the one before it, skipping the first row of the list in order to get the changes in profit/losses:
     for row in range(1,len(profit_losses_bank)):
         changes_profit_losses.append(int(profit_losses_bank[row]-profit_losses_bank[row-1])) 
     
     # Count the length of Date for total months:
     total_months = len(date_bank)
 
-    # Add up total Profit/Losses
+    # Add up Profit/Losses and save as total:
     total = sum(profit_losses_bank)
 
-    # Create the average of the changes in profits/losses list:
+    # Create the average of the changes in profits/losses list and round to 2 decimal places:
     ave_change = round(sum(changes_profit_losses)/len(changes_profit_losses), 2)
 
     # Find the max of change_profit_losses:
