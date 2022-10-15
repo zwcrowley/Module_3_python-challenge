@@ -3,11 +3,8 @@
 import os
 import csv
 
-# Path to get data from the Resources folder:
-bank_csv = os.path.join('Resources', 'budget_data.csv')
-
-# Read in the CSV file:
-with open(bank_csv) as csvfile:
+# Read in the CSV file using the os.path:
+with open(os.path.join('Resources', 'budget_data.csv')) as csvfile:
     # Read in the bank data as a dictionary:
     bank_data = csv.DictReader(csvfile)
 
@@ -22,7 +19,7 @@ with open(bank_csv) as csvfile:
     for row in bank_data:
         date_bank.append(row['Date']) 
         profit_losses_bank.append(int(row['Profit/Losses']))
-        
+
     # Iterate over profit_losses_bank and subtract each row in the list from the one before it, skipping the first row of the list in order to get the changes in profit/losses:
     for row in range(1,len(profit_losses_bank)):
         changes_profit_losses.append(int(profit_losses_bank[row]-profit_losses_bank[row-1])) 
