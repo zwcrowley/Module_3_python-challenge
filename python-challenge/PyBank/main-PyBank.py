@@ -31,10 +31,36 @@ with open(bank_csv) as csvfile:
     # Add up total Profit/Losses
     total = sum(profit_losses_bank)
 
-    print(len(changes_profit_losses))
-    print(changes_profit_losses)
     # Create the average of the changes in profits/losses list:
     ave_change = round(sum(changes_profit_losses)/len(changes_profit_losses), 2)
+
+    # Find the max of change_profit_losses:
+    max_changes = max(changes_profit_losses)
+
+    # Find the min of change_profit_losses:
+    min_changes = min(changes_profit_losses)
+
+    # Create two vars = 0 for row counters:
+    row_max_counter = 0
+    row_min_counter = 0
+
+    # For loop to find the index of max_changes to use to find date of Greatest Increase:
+    for row in changes_profit_losses:
+        if row == max_changes: 
+            max_index = row_max_counter
+        else:
+            row_max_counter += 1
+    # Set max_date to the index we just found and add 1 for skipping the first row in the changes of profits/losses calculation (see line 26):
+    max_date = date_bank[max_index+1]
+
+    # For loop to find the index of min_changes to use to find date of Greatest Decrease:
+    for row in changes_profit_losses:
+        if row == min_changes: 
+            min_index = row_min_counter
+        else:
+            row_min_counter += 1
+    # Set min_date to the index we just found and add 1 for skipping the first row in the changes of profits/losses calculation (see line 26):
+    min_date = date_bank[min_index+1]
 
     # Print Financial Analysis
     print(f'Financial Analysis')
@@ -46,9 +72,11 @@ with open(bank_csv) as csvfile:
     # Print Average Change:
     print(f'Average Change: ${ave_change}')
     # Print date and amount of Greatest Increase in Profits: 
-    # print(f'Greatest Increase in Profits: {} (${})')
+    print(f'Greatest Increase in Profits: {max_date} (${max_changes})')
     # Print date and amount of Greatest Decrease in Profits:
-    # print(f'Greatest Decrease in Profits: {} (${})')
-
-    # Export a text file of the results:
+    print(f'Greatest Decrease in Profits: {min_date} (${min_changes})')
     
+    # Print Financial Analysis
+    print(financial_analysis)
+    # Export a text file of the results:
+
