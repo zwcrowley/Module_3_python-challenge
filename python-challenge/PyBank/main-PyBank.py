@@ -13,17 +13,28 @@ with open(bank_csv) as csvfile:
     # First, create 2 empty lists as names for vars:
     date_bank = []
     profit_losses_bank = []
-    
-    for row in bank_data:
-        date_bank.append(row['Date'])
-        profit_losses_bank.append(int(row['Profit/Losses']))
+    # Create an empty list to save changes in :
+    changes_profit_losses = []
 
+    # Iterate over bank_data and store the colums as lists:
+    for row in bank_data:
+        date_bank.append(row['Date']) 
+        profit_losses_bank.append(int(row['Profit/Losses']))
+        
+    # Iterate over profit_losses_bank and subtract each row in the list from the one before it, skipping the first row of the list:
+    for row in range(1,len(profit_losses_bank)):
+        changes_profit_losses.append(int(profit_losses_bank[row]-profit_losses_bank[row-1])) 
+    
     # Count the length of Date for total months:
     total_months = len(date_bank)
 
     # Add up total Profit/Losses
     total = sum(profit_losses_bank)
-    
+
+    print(len(changes_profit_losses))
+    print(changes_profit_losses)
+    # Create the average of the changes in profits/losses list:
+    ave_change = round(sum(changes_profit_losses)/len(changes_profit_losses), 2)
 
     # Print Financial Analysis
     print(f'Financial Analysis')
@@ -33,8 +44,11 @@ with open(bank_csv) as csvfile:
     # Print total:
     print(f'Total: ${total}')
     # Print Average Change:
-    # print(f'Average Change: ${}')
+    print(f'Average Change: ${ave_change}')
     # Print date and amount of Greatest Increase in Profits: 
-    # print(f'Greatest Increase in Profits: {}')
+    # print(f'Greatest Increase in Profits: {} (${})')
     # Print date and amount of Greatest Decrease in Profits:
-    # print(f'Greatest Decrease in Profits: {}')
+    # print(f'Greatest Decrease in Profits: {} (${})')
+
+    # Export a text file of the results:
+    
