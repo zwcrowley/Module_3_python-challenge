@@ -62,21 +62,21 @@ with open(bank_csv) as csvfile:
     # Set min_date to the index we just found and add 1 for skipping the first row in the changes of profits/losses calculation (see line 26):
     min_date = date_bank[min_index+1]
 
-    # Print Financial Analysis
-    print(f'Financial Analysis')
-    print(f'----------------------------')
-    # Print total months:
-    print(f'Total Months: {total_months}')
-    # Print total:
-    print(f'Total: ${total}')
-    # Print Average Change:
-    print(f'Average Change: ${ave_change}')
-    # Print date and amount of Greatest Increase in Profits: 
-    print(f'Greatest Increase in Profits: {max_date} (${max_changes})')
-    # Print date and amount of Greatest Decrease in Profits:
-    print(f'Greatest Decrease in Profits: {min_date} (${min_changes})')
+    # Save text for Financial Analysis as a tuple = financial_analysis
+    # use the new line var to create a new line inside the f-string:
+    new_line = '\n'
+    financial_analysis = (
+    f'Financial Analysis{new_line}'
+    f'----------------------------{new_line}'
+    f'Total Months: {total_months}{new_line}'
+    f'Total: ${total}{new_line}'
+    f'Average Change: ${ave_change}{new_line}'
+    f'Greatest Increase in Profits: {max_date} (${max_changes}){new_line}'
+    f'Greatest Decrease in Profits: {min_date} (${min_changes})')
     
-    # Print Financial Analysis
+    # Print Financial Analysis to terminal
     print(financial_analysis)
-    # Export a text file of the results:
 
+# Export a text file of the results to 'output' folder:
+with open(os.path.join("Analysis-PyBank", 'analysis.txt'), "w") as txtfile:
+    txtfile.write(financial_analysis)
